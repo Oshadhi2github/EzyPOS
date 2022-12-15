@@ -1,6 +1,7 @@
 package com.bootcamp.pos.EzyPOS.service.impl;
 
 import com.bootcamp.pos.EzyPOS.dto.request.CustomerDto;
+import com.bootcamp.pos.EzyPOS.entity.Customer;
 import com.bootcamp.pos.EzyPOS.repo.CustomerRepo;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String saveCustomer(CustomerDto dto) {
-        customerRepo.save();
-        return null;
+        // dto => entity ==> save
+        //id generate
+        Customer c1 = new Customer(
+                "Id",dto.getName(),dto.getAddress(),dto.getSalary()
+        );
+        customerRepo.save(c1);
+        return c1.getId()+"Saved!";
     }
 
     @Override
