@@ -1,7 +1,10 @@
 package com.bootcamp.pos.EzyPOS.util;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Random;
 
+@Service
 public class IdGenerator {
     private final Random RANDOM = new Random();
     private final String RESOURCE="0123456789abcdefghijklmnopqrstuvwxyz";

@@ -20,7 +20,7 @@ public class CustomerController {
 
     @GetMapping("/{id}") //http://localhost:8000/api/v1/customer/15 (GET)
     public String findCustomer(@PathVariable String id){
-        return id+" - customer";
+        return customerService.findCustomer(id);
     }
 
     @PutMapping(value = "/modify",params = {"id"}) //http://localhost:8000/api/v1/customer/modify?id=15 (PUT)
