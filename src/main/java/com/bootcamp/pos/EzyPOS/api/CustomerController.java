@@ -1,10 +1,13 @@
 package com.bootcamp.pos.EzyPOS.api;
 
 import com.bootcamp.pos.EzyPOS.dto.request.CustomerDto;
+import com.bootcamp.pos.EzyPOS.dto.response.CustomerResponseDto;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
@@ -34,7 +37,7 @@ public class CustomerController {
     }
 
     @GetMapping("/list")//http://localhost:8000/api/v1/customer/list (GET)
-    public String findAllCustomers(){
-        return "all customers";
+    public List<CustomerResponseDto> findAllCustomers(){
+        return customerService.findAllCustomers();
     }
 }

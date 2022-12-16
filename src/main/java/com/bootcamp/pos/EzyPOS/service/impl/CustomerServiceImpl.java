@@ -1,6 +1,7 @@
 package com.bootcamp.pos.EzyPOS.service.impl;
 
 import com.bootcamp.pos.EzyPOS.dto.request.CustomerDto;
+import com.bootcamp.pos.EzyPOS.dto.response.CustomerResponseDto;
 import com.bootcamp.pos.EzyPOS.entity.Customer;
 import com.bootcamp.pos.EzyPOS.repo.CustomerRepo;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
@@ -10,6 +11,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,7 +65,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String findAllCustomers() {
-        return null;
+    public List<CustomerResponseDto> findAllCustomers() {
+        List<CustomerResponseDto> dtoList = new ArrayList<>();
+        List<Customer> list = customerRepo.findAll();
+        for (Customer c: list
+             ) {
+            dtoList.add(new CustomerResponseDto(
+                    c.getId(),c.getName(),c.getAddress(),c.getSalary()
+            ));
+        }
+        return dtoList;
     }
 }
