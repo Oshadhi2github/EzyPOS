@@ -25,7 +25,7 @@ public class CustomerController {
 
     @PutMapping(value = "/modify",params = {"id"}) //http://localhost:8000/api/v1/customer/modify?id=15 (PUT)
     public String updateCustomer(@RequestBody CustomerDto dto, @RequestParam String id){
-        return dto+"-"+id;
+        return customerService.updateCustomer(dto, id);
     }
 
     @DeleteMapping("/remove/{id}")//http://localhost:8000/api/v1/customer/remove/15 (DELETE)

@@ -46,7 +46,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String updateCustomer(CustomerDto dto, String id) {
-        return null;
+        Customer c = customerRepo.findById(id).orElse(null);
+        if (null==c) return "Not found";
+        c.setName(dto.getName());
+        c.setAddress(dto.getAddress());
+        c.setSalary(dto.getSalary());
+        customerRepo.save(c); //update
+        return c.getName()+"was updated!";
     }
 
     @Override
