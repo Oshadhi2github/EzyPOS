@@ -39,17 +39,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponseDto findCustomer(String id) {
-       /* Optional<Customer> selectedCustomer= customerRepo.findById(id);
-        if (selectedCustomer.isPresent()){
-            return selectedCustomer.get().toString();
-        }
-        return null;*/
+    public CustomerResponseDto findCustomer(String id) throws ClassNotFoundException {
         Customer c = customerRepo.findById(id).orElse(null);
+        if (c==null){
+            throw new ClassNotFoundException("Not Found");
+        }
         return new CustomerResponseDto(
                 c.getId(),c.getName(),c.getAddress(),c.getSalary()
         );
-        //return customerRepo.findById(id);
+
     }
 
     @Override
