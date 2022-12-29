@@ -1,19 +1,16 @@
 package com.bootcamp.pos.EzyPOS.service.impl;
 
-import com.bootcamp.pos.EzyPOS.dto.request.CustomerDto;
+import com.bootcamp.pos.EzyPOS.dto.request.CustomerRequestDto;
 import com.bootcamp.pos.EzyPOS.dto.response.CustomerResponseDto;
 import com.bootcamp.pos.EzyPOS.entity.Customer;
 import com.bootcamp.pos.EzyPOS.repo.CustomerRepo;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import com.bootcamp.pos.EzyPOS.util.IdGenerator;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -28,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public String saveCustomer(CustomerDto dto) {
+    public String saveCustomer(CustomerRequestDto dto) {
         // dto => entity ==> save
         //id generate
         Customer c1 = new Customer(
@@ -51,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String updateCustomer(CustomerDto dto, String id) {
+    public String updateCustomer(CustomerRequestDto dto, String id) {
         Customer c = customerRepo.findById(id).orElse(null);
         if (null==c) return "Not found";
         c.setName(dto.getName());
