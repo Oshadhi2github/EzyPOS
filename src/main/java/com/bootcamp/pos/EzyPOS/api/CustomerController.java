@@ -27,7 +27,7 @@ public class CustomerController {
     @PostMapping(
             value = "/create",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            produces = {"text/xml",MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     ) //http://localhost:8000/api/v1/customer/create (POST)
     public ResponseEntity<StandardResponse> save(@RequestBody CustomerDto dto){
         return new ResponseEntity<>(
@@ -40,23 +40,48 @@ public class CustomerController {
 
     }
 
-   /* @GetMapping("/{id}") //http://localhost:8000/api/v1/customer/15 (GET)
+    @GetMapping("/{id}") //http://localhost:8000/api/v1/customer/15 (GET)
     public ResponseEntity<StandardResponse> findCustomer(@PathVariable String id){
-        return customerService.findCustomer(id);
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        200,
+                        id+" details!",
+                        customerService.findCustomer(id)
+                ), HttpStatus.OK
+        );
+
     }
 
     @PutMapping(value = "/modify",params = {"id"}) //http://localhost:8000/api/v1/customer/modify?id=15 (PUT)
     public ResponseEntity<StandardResponse> updateCustomer(@RequestBody CustomerDto dto, @RequestParam String id){
-        return customerService.updateCustomer(dto, id);
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        201,
+                        customerService.updateCustomer(dto, id),
+                        null
+                ), HttpStatus.CREATED
+        );
     }
 
     @DeleteMapping("/remove/{id}")//http://localhost:8000/api/v1/customer/remove/15 (DELETE)
     public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable String id){
-        return customerService.deleteCustomer(id);
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        204,
+                        customerService.deleteCustomer(id),
+                        null
+                ), HttpStatus.NO_CONTENT
+        );
     }
 
     @GetMapping("/list")//http://localhost:8000/api/v1/customer/list (GET)
     public ResponseEntity<StandardResponse> findAllCustomers(){
-        return customerService.findAllCustomers();
-    }*/
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        200,
+                        "Data List!",
+                        customerService.findAllCustomers()
+                ), HttpStatus.OK
+        );
+    }
 }
