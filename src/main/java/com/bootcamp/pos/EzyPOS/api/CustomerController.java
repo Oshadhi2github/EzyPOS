@@ -7,6 +7,7 @@ import com.bootcamp.pos.EzyPOS.util.StandardResponse;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,11 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping("/create") //http://localhost:8000/api/v1/customer/create (POST)
+    @PostMapping(
+            value = "/create",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {"text/xml",MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+    ) //http://localhost:8000/api/v1/customer/create (POST)
     public ResponseEntity<StandardResponse> save(@RequestBody CustomerDto dto){
         return new ResponseEntity<>(
                 new StandardResponse(
