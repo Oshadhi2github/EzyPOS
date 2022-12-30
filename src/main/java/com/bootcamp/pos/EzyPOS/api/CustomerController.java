@@ -48,7 +48,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/modify",params = {"id"}) //http://localhost:8000/api/v1/customer/modify?id=15 (PUT)
-    public ResponseEntity<StandardResponse> updateCustomer(@RequestBody CustomerRequestDto dto, @RequestParam String id){
+    public ResponseEntity<StandardResponse> updateCustomer(@RequestBody CustomerRequestDto dto, @RequestParam String id) throws ClassNotFoundException {
         return new ResponseEntity<>(
                 new StandardResponse(
                         201,
