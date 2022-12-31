@@ -3,12 +3,14 @@ package com.bootcamp.pos.EzyPOS.service.impl;
 import com.bootcamp.pos.EzyPOS.dto.CustomerDto;
 import com.bootcamp.pos.EzyPOS.dto.request.CustomerRequestDto;
 import com.bootcamp.pos.EzyPOS.dto.response.CustomerResponseDto;
+import com.bootcamp.pos.EzyPOS.dto.response.paginate.PaginateCustomerResponseDto;
 import com.bootcamp.pos.EzyPOS.entity.Customer;
 import com.bootcamp.pos.EzyPOS.repo.CustomerRepo;
 import com.bootcamp.pos.EzyPOS.service.CustomerService;
 import com.bootcamp.pos.EzyPOS.util.IdGenerator;
 import com.bootcamp.pos.EzyPOS.util.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -71,19 +73,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerResponseDto> findAllCustomers() {
-        return customerMapper.toCustomerResponseDtoList(customerRepo.findAll());
+    public PaginateCustomerResponseDto findAllCustomers(
+            String searchText, int page, int size
+    ) {
+        //create method with a custom query=? (find data)
+        //create method with a custom query=? (count)
+        return new PaginateCustomerResponseDto(
+                customerRepo.countCustomer(searchText),
+                customerMapper.toCustomerResponseDtoList(customerRepo.searchCustomer(
+                        searchText, PageRequest.of(page, size)
+                ))
+        );
 
-        //modalMapper (http://modelmapper.org/)
-        //mapstruct (http://mapstruct.org/)
-        /*List<CustomerResponseDto> dtoList = new ArrayList<>();
-        List<Customer> list = customerRepo.findAll();
-        for (Customer c: list
-             ) {
-            dtoList.add(new CustomerResponseDto(
-                    c.getId(),c.getName(),c.getAddress(),c.getSalary()
-            ));
-        }
-        return dtoList;*/
     }
 }
